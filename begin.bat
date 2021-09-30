@@ -1,1 +1,1 @@
-g++ -o main ./testmac.cpp -liphlpapi
+START g++ -o main ./testmac.cpp -liphlpapi
