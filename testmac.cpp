@@ -161,7 +161,6 @@ bool get_net_info(const std::vector<std::string> target_device_name_list,
       ifr.ifr_addr.sa_family = AF_INET;
       strncpy(ifr.ifr_name, device_name.c_str(), IFNAMSIZ - 1);
       ioctl(fd, SIOCGIFADDR, &ifr);
-      close(fd);
 
       ip = inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr);
       find = true;
@@ -313,10 +312,11 @@ std::string get_cpu_info() {
 
 int main() {
   std::string device_name, mac_addr, ip;
-  get_net_info({}, device_name, mac_addr, ip);
-  std::cout << "device_name : " << device_name << std::endl;
-  std::cout << "mac addr : " << mac_addr << std::endl;
-  std::cout << "ip : " << ip << std::endl;
+  if (get_net_info({}, device_name, mac_addr, ip)) {
+    std::cout << "device_name : " << device_name << std::endl;
+    std::cout << "mac addr : " << mac_addr << std::endl;
+    std::cout << "ip : " << ip << std::endl;
+  }
 #if defined(__linux__)
   std::cout << "cpu : " << get_cpu_info() << std::endl;
 #endif
