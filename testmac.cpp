@@ -118,8 +118,8 @@ std::string traverse_mac_addr(std::string &device_name) {
 }
 #endif
 
-bool get_net_info(const std::vector<std::string> target_device_name_list,
-                  std::string &device_name, std::string &mac, std::string &ip) {
+bool get_net_info(std::string &device_name, std::string &mac, std::string &ip,
+                  const std::vector<std::string> target_device_name_list = {}) {
   bool find = false;
   device_name = "";
   mac = "";
@@ -312,7 +312,7 @@ std::string get_cpu_info() {
 
 int main() {
   std::string device_name, mac_addr, ip;
-  if (get_net_info({}, device_name, mac_addr, ip)) {
+  if (get_net_info(device_name, mac_addr, ip)) {
     std::cout << "device_name : " << device_name << std::endl;
     std::cout << "mac addr : " << mac_addr << std::endl;
     std::cout << "ip : " << ip << std::endl;
